@@ -1,0 +1,33 @@
+{
+  "summary": "Frontend retest of newly added sections (HydraFacial, BridalMakeup, HairServices, Offers), 10-item navigation and Google Maps embed on New Look Beauty Parlour site. All targeted features verified working. Testing type: frontend-only (backend skipped per request).",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "verified_features": {
+    "desktop_nav_10_links": "All 10 nav-link-* testids present and functional (home, about, services, hydra-facial, bridal-makeup, hair-services, gallery, offers, testimonials, contact). Home scrolls to top (scrollY=0). Each section-link scrolls its target #id into viewport (verified hydra-facial direct-click: section top=0.15px, scrollY=9344).",
+    "hydra_facial_section": "data-testid='hydra-facial-section' present. Contains 5 method step <li> items and data-testid='hydra-book-btn'. NOTE: request expected 'hydra-step-*' testids but implementation uses <li> only (5 items visible, matches spec count).",
+    "bridal_makeup_section": "data-testid='bridal-makeup-section' present with all 4 packages bridal-pkg-0..3 rendered.",
+    "hair_services_section": "data-testid='hair-services-section' present. 6 hair service rows rendered. NOTE: testids are 'hair-service-{n}' (not 'hair-row-*' as in review request) — 6 items confirmed.",
+    "offers_section": "data-testid='offers-section' present with all 4 offer-card-0..3 rendered.",
+    "contact_maps_embed": "data-testid='contact-maps-embed-link' anchor contains an <iframe> pointing to maps.google.com?q=New%20Look%20Beauty%20Parlour%20Akividu... — embed working.",
+    "mobile_menu_390x800": "nav-menu-btn opens mobile-menu; all 10 mobile-nav-* links present (home..contact).",
+    "appointment_form": "form testids form-name, form-phone, form-service, form-date, form-time, form-submit all present. Form fill + submit fires flow (WhatsApp text appears in DOM after submit). Note: actual testids differ from review request 'appointment-*-input' — actual are 'form-*'. Iteration 2 already validated end-to-end POST /api/appointments; not re-verified in depth here."
+  },
+  "test_report_links": [],
+  "action_items": [
+    "Minor doc/testid mismatch: review request lists 'hydra-step-*', 'hair-row-*', 'appointment-name-input/appointment-phone-input/appointment-submit-btn' but code uses <li> (no per-step testid), 'hair-service-{n}', and 'form-name/form-phone/form-submit'. Either update code testids to match spec or update spec. Recommend adding data-testid='hydra-step-{i}' to the 5 method items and data-testid='hair-row-{i}' aliases for consistency."
+  ],
+  "critical_code_review_comments": [
+    "Console warning: 'Please ensure that the container has a non-static position (relative/fixed/absolute) to ensure scroll offset is calculated correctly.' Emitted twice on load — likely from Lenis scroll init. Minor, non-blocking.",
+    "Lenis smooth-scroll animation between distant sections can take >1.8s; long-distance nav clicks (e.g. services -> hydra-facial) may appear un-scrolled in short-wait automation. Not a real bug — direct click from top works fine."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "N/A (skipped)", "frontend": "100%"},
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "All new-nav + new-section features verified on desktop 1920x1080 and mobile 390x800. Actual testids differ slightly from review-request naming (hydra-step-*, hair-row-*, appointment-*-input) — implementation uses <li>, hair-service-{n}, and form-*. Google Maps iframe is present inside contact-maps-embed-link anchor. Waiting ~2-2.5s after nav click is required due to Lenis smooth scroll."
+}

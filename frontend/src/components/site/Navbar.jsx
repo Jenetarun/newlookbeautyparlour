@@ -3,10 +3,15 @@ import { Moon, Sun, Menu, X } from "lucide-react";
 import { BRAND } from "@/data/salon";
 
 const links = [
-  { id: "about", label: "Atelier" },
+  { id: "home", label: "Home" },
+  { id: "about", label: "About" },
   { id: "services", label: "Services" },
+  { id: "hydra-facial", label: "Hydra Facial" },
+  { id: "bridal-makeup", label: "Bridal" },
+  { id: "hair-services", label: "Hair" },
   { id: "gallery", label: "Gallery" },
-  { id: "testimonials", label: "Voices" },
+  { id: "offers", label: "Offers" },
+  { id: "testimonials", label: "Reviews" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -23,6 +28,10 @@ export default function Navbar({ theme, setTheme }) {
 
   const scrollTo = (id) => {
     setOpen(false);
+    if (id === "home") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
@@ -49,13 +58,13 @@ export default function Navbar({ theme, setTheme }) {
           </span>
         </button>
 
-        <div className="hidden lg:flex items-center gap-10">
+        <div className="hidden lg:flex items-center gap-6 xl:gap-8">
           {links.map((l) => (
             <button
               key={l.id}
               data-testid={`nav-link-${l.id}`}
               onClick={() => scrollTo(l.id)}
-              className="font-mono-luxe text-[11px] tracking-[0.25em] uppercase opacity-70 hover:opacity-100 hover:text-gold transition-colors duration-300"
+              className="font-mono-luxe text-[10px] xl:text-[11px] tracking-[0.2em] xl:tracking-[0.25em] uppercase opacity-70 hover:opacity-100 hover:text-gold transition-colors duration-300 whitespace-nowrap"
             >
               {l.label}
             </button>

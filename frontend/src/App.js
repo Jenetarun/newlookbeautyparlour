@@ -9,7 +9,11 @@ import Hero from "@/components/site/Hero";
 import About from "@/components/site/About";
 import Marquee from "@/components/site/Marquee";
 import Services from "@/components/site/Services";
+import HydraFacial from "@/components/site/HydraFacial";
+import BridalMakeup from "@/components/site/BridalMakeup";
+import HairServices from "@/components/site/HairServices";
 import Gallery from "@/components/site/Gallery";
+import Offers from "@/components/site/Offers";
 import Testimonials from "@/components/site/Testimonials";
 import Contact from "@/components/site/Contact";
 import Footer from "@/components/site/Footer";
@@ -49,7 +53,11 @@ function Landing() {
       <About />
       <Marquee />
       <Services onBook={scrollToBook} />
+      <HydraFacial onBook={scrollToBook} />
+      <BridalMakeup onBook={scrollToBook} />
+      <HairServices onBook={scrollToBook} />
       <Gallery />
+      <Offers onBook={scrollToBook} />
       <Testimonials />
       <Contact />
       <Footer />

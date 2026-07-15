@@ -12,7 +12,9 @@ export const BRAND = {
     "https://www.instagram.com/new_look_herbal_beauty_parlour?igsh=eHV2c2Q1NWQweTJ4",
   instagramHandle: "@new_look_herbal_beauty_parlour",
   mapsUrl:
-    "https://www.google.com/maps/search/?api=1&query=New+Look+Beauty+Parlour+Akividu+West+Godavari",
+    "https://maps.app.goo.gl/SxKDhZvDfnnt23b96?g_st=ac",
+  mapsEmbed:
+    "https://maps.google.com/maps?q=New%20Look%20Beauty%20Parlour%20Akividu%20Kakarla%20Vari%20Street&t=&z=15&ie=UTF8&iwloc=&output=embed",
   hours: [
     { day: "Monday — Saturday", time: "9:00 AM — 8:00 PM" },
     { day: "Sunday", time: "By Appointment" },

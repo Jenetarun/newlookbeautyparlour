@@ -155,6 +155,33 @@ export default function Contact() {
               ))}
             </ul>
           </div>
+
+          {/* Google Maps embed */}
+          <div>
+            <div className="font-mono-luxe text-[10px] tracking-[0.3em] uppercase opacity-60 mb-3 flex items-center gap-2">
+              <MapPin size={11} strokeWidth={1.5} /> Find the Atelier
+            </div>
+            <a
+              data-testid="contact-maps-embed-link"
+              href={BRAND.mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="block relative aspect-[16/10] rounded-2xl overflow-hidden border border-gold-soft group"
+            >
+              <iframe
+                title="New Look Beauty Parlour on Google Maps"
+                src={BRAND.mapsEmbed}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="absolute inset-0 w-full h-full grayscale-[30%] contrast-110 group-hover:grayscale-0 transition-all duration-700"
+                style={{ border: 0 }}
+                allowFullScreen
+              />
+              <div className="absolute bottom-3 right-3 px-3 py-1.5 rounded-full glass font-mono-luxe text-[10px] tracking-[0.25em] uppercase text-gold">
+                Open in Maps ↗
+              </div>
+            </a>
+          </div>
         </div>
 
         {/* Form */}

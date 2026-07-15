@@ -34,6 +34,7 @@ export default function Hero({ onBook }) {
   return (
     <section
       ref={ref}
+      id="home"
       data-testid="hero-section"
       className="relative h-[100svh] min-h-[680px] w-full overflow-hidden"
     >
