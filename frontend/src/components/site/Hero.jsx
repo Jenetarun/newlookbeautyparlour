@@ -114,9 +114,18 @@ export default function Hero({ onBook }) {
             custom={-1}
             initial="hidden"
             animate="show"
-            className="font-mono-luxe text-[10px] md:text-xs tracking-[0.4em] uppercase text-gold mb-6"
+            className="brand-lockup w-full flex items-center justify-center gap-2.5 sm:gap-4 md:gap-6 mb-8 md:mb-10"
           >
-            {h.eyebrow || "New Look Beauty Parlour"}
+            <span aria-hidden className="brand-sparkle text-base sm:text-lg md:text-2xl">✦</span>
+            <span aria-hidden className="brand-line flex-1 min-w-[24px] max-w-[80px] sm:max-w-[130px] md:max-w-[200px]" />
+            <h2
+              data-testid="hero-brand-lockup"
+              className="brand-heading font-display font-black uppercase text-center whitespace-nowrap text-[13px] sm:text-lg md:text-3xl lg:text-4xl tracking-[0.22em] sm:tracking-[0.28em] md:tracking-[0.34em]"
+            >
+              {h.eyebrow || "New Look Beauty Parlour"}
+            </h2>
+            <span aria-hidden className="brand-line flex-1 min-w-[24px] max-w-[80px] sm:max-w-[130px] md:max-w-[200px]" />
+            <span aria-hidden className="brand-sparkle text-base sm:text-lg md:text-2xl">✦</span>
           </motion.div>
 
           <h1 className="font-display font-medium leading-[0.92] tracking-[-0.02em] text-[13vw] md:text-[9vw] lg:text-[8.4rem] xl:text-[9.5rem] max-w-6xl">

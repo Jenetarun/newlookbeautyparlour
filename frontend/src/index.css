@@ -274,6 +274,85 @@ body {
     100% { transform: scaleX(0); transform-origin: right; }
 }
 
+/* ---------- Premium brand lockup (hero eyebrow) ---------- */
+.brand-heading {
+    background: linear-gradient(
+        135deg,
+        #ffd700 0%,
+        #fff3a3 45%,
+        #d4af37 55%,
+        #ffd700 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter:
+        drop-shadow(0 1px 0 rgba(0, 0, 0, 0.55))
+        drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.35))
+        drop-shadow(0 0 8px rgba(255, 215, 0, 0.55))
+        drop-shadow(0 0 20px rgba(255, 215, 0, 0.35))
+        drop-shadow(0 0 34px rgba(255, 255, 255, 0.18));
+    animation: brandGlow 4.5s ease-in-out infinite;
+}
+@keyframes brandGlow {
+    0%,
+    100% {
+        filter:
+            drop-shadow(0 1px 0 rgba(0, 0, 0, 0.55))
+            drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.35))
+            drop-shadow(0 0 6px rgba(255, 215, 0, 0.5))
+            drop-shadow(0 0 18px rgba(255, 215, 0, 0.3))
+            drop-shadow(0 0 28px rgba(255, 255, 255, 0.15));
+    }
+    50% {
+        filter:
+            drop-shadow(0 1px 0 rgba(0, 0, 0, 0.55))
+            drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.4))
+            drop-shadow(0 0 10px rgba(255, 215, 0, 0.7))
+            drop-shadow(0 0 24px rgba(255, 215, 0, 0.45))
+            drop-shadow(0 0 40px rgba(255, 255, 255, 0.22));
+    }
+}
+.brand-line {
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(212, 175, 55, 0.4) 15%,
+        #d4af37 45%,
+        #ffd700 50%,
+        #d4af37 55%,
+        rgba(212, 175, 55, 0.4) 85%,
+        transparent 100%
+    );
+    box-shadow:
+        0 0 6px rgba(255, 215, 0, 0.55),
+        0 0 12px rgba(255, 215, 0, 0.25);
+    border-radius: 999px;
+}
+.brand-sparkle {
+    color: #ffd700;
+    text-shadow:
+        0 0 6px rgba(255, 215, 0, 0.9),
+        0 0 14px rgba(255, 215, 0, 0.6),
+        0 0 24px rgba(255, 255, 255, 0.35);
+    animation: brandSparkle 2.4s ease-in-out infinite;
+    line-height: 1;
+    display: inline-block;
+}
+@keyframes brandSparkle {
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+    50% {
+        opacity: 0.72;
+        transform: scale(1.18) rotate(45deg);
+    }
+}
+
 /* Input luxe */
 .input-luxe {
     width: 100%;
