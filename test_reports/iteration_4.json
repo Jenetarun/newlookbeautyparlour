@@ -1,0 +1,24 @@
+{
+  "summary": "Bug-fix verification for /studio white-screen. All 7 checks pass on PREVIEW. Sanity Studio static bundle serves correctly (title='Sanity Studio', 8667-byte HTML, favicon 1200 bytes, JS bundle 5,034,558 bytes application/javascript). Main site renders Hero. Footer 'Manage Content' link (data-testid='footer-studio-link') present with href='/studio/'. Backend /api/ welcome and POST /api/appointments both work.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "verified_checks": [
+    {"check": "GET /studio/ returns Sanity HTML", "result": "PASS — 8667 bytes, <title>Sanity Studio</title>"},
+    {"check": "GET /studio/favicon.ico", "result": "PASS — content-type image/x-icon, content-length 1200"},
+    {"check": "GET /studio/static/sanity-Dp4vWvoJ.js", "result": "PASS — content-type application/javascript, content-length 5,034,558"},
+    {"check": "Main site loads Hero", "result": "PASS — 'Where beauty meets perfection' visible"},
+    {"check": "Footer studio link", "result": "PASS — visible, href='/studio/', text='Manage Content ↗'"},
+    {"check": "GET /api/", "result": "PASS — 'New Look Beauty Parlour API — Where Beauty Meets Perfection'"},
+    {"check": "POST /api/appointments", "result": "PASS — 200 with id returned (payload requires preferred_date/preferred_time fields, not date/time)"},
+    {"check": "Studio JS actually initializes in browser", "result": "PASS — after 9s wait, page.title()='Sanity Studio' and Sanity CORS gate UI renders ('Before you continue... add the following URL as a CORS origin'). This confirms the studio bundle downloaded and executed. The CORS gate is expected on the preview origin (user added prod origin only); on production https://luxe-beauty-parlour-4.emergent.host the gate should pass once user redeploys."}
+  ],
+  "test_report_links": [],
+  "action_items": ["USER ACTION: Click Deploy in Emergent UI to push /studio/ bundle to production https://luxe-beauty-parlour-4.emergent.host/studio/. Preview verified working; production still shows old build until redeploy."],
+  "critical_code_review_comments": [],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "seed_data_creation": "1 test appointment created (id=571dd40a-3fa4-4fd5-bf9a-3d1b7b62fd27, name='TEST_User').",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Studio is served as static assets from frontend/public/studio/. Preview URL /studio/ works. Production requires user-triggered deploy. Appointments endpoint expects fields preferred_date & preferred_time (not date/time)."
+}
