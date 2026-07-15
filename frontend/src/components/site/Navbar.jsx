@@ -46,15 +46,16 @@ export default function Navbar({ theme, setTheme }) {
         <button
           data-testid="nav-brand"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="flex items-center gap-3 group"
+          aria-label="New Look Beauty Parlour — Home"
+          className="flex items-center group -my-2"
         >
-          <span className="inline-block w-2 h-2 rounded-full bg-gold" />
-          <span className="font-display text-lg md:text-xl tracking-tight">
-            New Look
-            <span className="font-editorial italic text-gold ml-1.5">
-              Beauty
-            </span>
-          </span>
+          <img
+            src="/brand/new-look-logo.png"
+            alt="New Look Beauty Parlour"
+            className="h-12 md:h-16 w-auto object-contain select-none transition-transform duration-500 group-hover:scale-[1.03]"
+            style={{ mixBlendMode: "normal" }}
+            draggable="false"
+          />
         </button>
 
         <div className="hidden lg:flex items-center gap-6 xl:gap-8">
