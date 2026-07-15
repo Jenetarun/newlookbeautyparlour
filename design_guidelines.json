@@ -1,0 +1,140 @@
+{
+  "brand": {
+    "name": "New Look Beauty Parlour",
+    "tagline": "Where Beauty Meets Perfection",
+    "beautician": "Lakshmi Eswari",
+    "phone": "9505648133",
+    "location": "Akividu, West Godavari, Andhra Pradesh, India"
+  },
+  "aesthetic_archetype": "Luxury (Premium, Depth, Mystery)",
+  "color_palette": {
+    "dark_mode": {
+      "background": "#050505",
+      "surface": "#111111",
+      "surface_glass": "rgba(17, 17, 17, 0.6)",
+      "primary": "#D4AF37",
+      "primary_hover": "#F3E5AB",
+      "secondary": "#B76E79",
+      "text_primary": "#F8F8F8",
+      "text_secondary": "#A0A0A0",
+      "border": "rgba(212, 175, 55, 0.2)",
+      "border_glow": "rgba(212, 175, 55, 0.5)"
+    },
+    "light_mode": {
+      "background": "#FAFAFA",
+      "surface": "#FFFFFF",
+      "surface_glass": "rgba(255, 255, 255, 0.7)",
+      "primary": "#B8860B",
+      "primary_hover": "#D4AF37",
+      "secondary": "#B76E79",
+      "text_primary": "#1A1A1A",
+      "text_secondary": "#555555",
+      "border": "rgba(184, 134, 11, 0.2)",
+      "border_glow": "rgba(184, 134, 11, 0.4)"
+    }
+  },
+  "typography": {
+    "strategy": "The Old Money Tech (Classic Serif Head + Sterile Mono/Sans Body)",
+    "fonts": {
+      "heading": "Playfair Display",
+      "body": "Inter",
+      "accent": "Cormorant Garamond"
+    },
+    "hierarchy": {
+      "h1": "text-5xl sm:text-6xl tracking-tighter leading-none font-medium",
+      "h2": "text-3xl sm:text-4xl tracking-tight leading-tight",
+      "h3": "text-xl sm:text-2xl tracking-normal",
+      "body": "text-base leading-relaxed font-light",
+      "overline": "text-xs tracking-[0.2em] uppercase font-medium"
+    },
+    "guidelines": "Headings must use Playfair Display with tight tracking. Use italic accents for subheadings or specific words inside headings to add high-class refinement."
+  },
+  "visual_enhancers": {
+    "glassmorphism": "Use Optical Clarity strategy. High opacity backgrounds (bg-black/60) with heavy blur (backdrop-blur-2xl), 1px delicate inner stroke (border-white/10).",
+    "shadows": "Diffuse ambient shadow. shadow-[0_8px_32px_rgba(212,175,55,0.05)] in dark mode.",
+    "borders": "1px solid borders using the defined border colors to create crisp separation. Use rounded-2xl or rounded-3xl for cards."
+  },
+  "motion_and_interactions": {
+    "libraries": ["framer-motion", "lenis"],
+    "scroll": "Use Lenis for smooth momentum scrolling. The site must feel weighty and premium.",
+    "animations": {
+      "hero_reveal": "Masked line-by-line reveal for the H1. Elements fade and slide up slowly.",
+      "marquee": "Slow editorial marquee for services. Very smooth drift. Minimalist typography.",
+      "hover_states": "Images inside cards scale up slightly (scale-105) on hover with a slow transition (duration-700).",
+      "parallax": "Use subtle vertical parallax on large imagery in the About/Why Choose Us sections."
+    }
+  },
+  "layouts": {
+    "spacing": "Generous Spacing Philosophy. Use p-8, p-12, p-16, p-24, p-32. Minimum gap-8 for grids.",
+    "hero": "Cinematic Kinetic Hero. Large background image or video with dark overlay (bg-black/40). Masked typography in the center or left-aligned. Multiple CTAs (Book Appointment, WhatsApp, Call, Map).",
+    "about_manifesto": "Numbered Manifesto Chapters. Asymmetric layout with large sticky numbering on the left and content on the right.",
+    "services_grid": "Bento or Asymmetric Grid. Mixing tall (row-span-2) and wide cards. Hover choreography reveals 'Book Now' button.",
+    "gallery": "Instagram-style masonry or structured high-density grid. No gaps or 1px gaps for a seamless editorial look.",
+    "contact": "Split layout: Contact info & Google Maps on the left, appointment form on the right. Form uses shadcn/ui with customized luxury styling."
+  },
+  "image_urls": {
+    "hero_bride": {
+      "url": "https://images.unsplash.com/photo-1610173827043-9db50e0d8ef9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODl8MHwxfHNlYXJjaHwxfHxpbmRpYW4lMjBicmlkZSUyMG1ha2V1cCUyMGx1eHVyeSUyMHdlZGRpbmd8ZW58MHx8fHwxNzgyNzA1NjY2fDA&ixlib=rb-4.1.0&q=85",
+      "description": "Luxury Indian bride, highly cinematic for the hero section."
+    },
+    "facial_treatment": {
+      "url": "https://images.pexels.com/photos/37229301/pexels-photo-37229301.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Woman receiving a luxury spa facial mask."
+    },
+    "hair_styling": {
+      "url": "https://images.pexels.com/photos/696285/pexels-photo-696285.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Professional hairstyling in a luxury salon."
+    },
+    "salon_interior": {
+      "url": "https://images.unsplash.com/photo-1633681926035-ec1ac984418a",
+      "description": "Modern beauty salon interior."
+    },
+    "mehendi": {
+      "url": "https://images.unsplash.com/photo-1757331446901-8f935a107bc9",
+      "description": "Intricate luxury henna/mehendi hands."
+    },
+    "products_display": {
+      "url": "https://images.pexels.com/photos/13068378/pexels-photo-13068378.jpeg",
+      "description": "Luxury beauty cosmetic products display in modern store."
+    },
+    "reception": {
+      "url": "https://images.unsplash.com/photo-1603423942656-3130154623f8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHw0fHxsdXh1cnklMjBzYWxvbiUyMHJlY2VwdGlvbiUyMGRlc2t8ZW58MHx8fHwxNzgzMDA4NTEwfDA&ixlib=rb-4.1.0&q=85",
+      "description": "Luxury salon reception interior styling."
+    }
+  },
+  "components_and_features": {
+    "sticky_nav": "Glassmorphism header, sticky at top, z-50. Must include brand name in Playfair Display, key links, and 'Book Now' CTA.",
+    "floating_ctas": "Fixed bottom-right buttons for WhatsApp and Call. Must be styled with the primary/gold color.",
+    "appointment_form": "Shadcn/UI based. Inputs should have subtle bottom borders or very light rounded backgrounds. Must save to backend + trigger WhatsApp redirect."
+  },
+  "accessibility": {
+    "contrast": "Ensure gold/rose gold text meets minimum 4.5:1 contrast ratio against dark backgrounds. Use text-shadow if necessary over images.",
+    "testing": "All interactive elements (buttons, inputs, links) MUST include a `data-testid` attribute (e.g., `data-testid=\"book-appointment-button\"`)."
+  },
+  "instructions_to_main_agent": [
+    "Install framer-motion and lenis for smooth scrolling and animations.",
+    "Ensure dark mode is the default, with a working toggle for light mode.",
+    "Use Playfair Display for headings and Inter for body text.",
+    "Implement the Cinematic Kinetic Hero with a masked line-by-line reveal using framer-motion.",
+    "Create an Editorial Marquee using framer-motion or a marquee library.",
+    "Build the Services Grid with hover choreography (images scaling up, buttons appearing).",
+    "Develop the Instagram-style Gallery using a dense masonry or CSS grid.",
+    "Implement floating WhatsApp and Call CTA buttons.",
+    "Ensure the Appointment form integrates with Shadcn components, custom styled to fit the luxury theme.",
+    "DO NOT use pure transparent backgrounds for the sticky header—use the defined glassmorphism strategy."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Avoid generic, 'on distribution' outputs. Do not make generic centered layouts or simplistic uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur).",
+    "Do NOT apply universal transition (transition: all). Add transitions to specific properties to avoid breaking transforms.",
+    "Do NOT center align the app container in global CSS.",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations.",
+    "Never use AI assistant Emoji characters (🤖🧠💭💡🔮🎯).",
+    "Every interaction needs micro-animations (hover states, parallax).",
+    "Use 2-3x more spacing than feels comfortable.",
+    "Use the provided image URLs. NEVER use placeholder text or URLs.",
+    "Prioritize reusing Shadcn components from src/components/ui.",
+    "Use 'sonner' for toasts notifications."
+  ]
+}
