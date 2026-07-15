@@ -1,56 +1,80 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "@/App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
-import { HOME } from "@/constants/testIds";
+import { Toaster } from "sonner";
+import { useLenis } from "@/lib/lenis";
+import Loader from "@/components/site/Loader";
+import Navbar from "@/components/site/Navbar";
+import Hero from "@/components/site/Hero";
+import About from "@/components/site/About";
+import Marquee from "@/components/site/Marquee";
+import Services from "@/components/site/Services";
+import Gallery from "@/components/site/Gallery";
+import Testimonials from "@/components/site/Testimonials";
+import Contact from "@/components/site/Contact";
+import Footer from "@/components/site/Footer";
+import FloatingCTAs from "@/components/site/FloatingCTAs";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
-
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
+function Landing() {
+  useLenis();
+  const [theme, setTheme] = useState("dark");
 
   useEffect(() => {
-    helloWorldApi();
+    // Auto with dark default
+    const stored = localStorage.getItem("nl-theme");
+    if (stored) {
+      setTheme(stored);
+    } else {
+      const prefersLight = window.matchMedia?.("(prefers-color-scheme: light)").matches;
+      setTheme(prefersLight ? "light" : "dark");
+    }
   }, []);
 
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          data-testid={HOME.emergentLink}
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === "dark") root.classList.add("dark");
+    else root.classList.remove("dark");
+    localStorage.setItem("nl-theme", theme);
+  }, [theme]);
 
-function App() {
+  const scrollToBook = () => {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+    <div className="App grain relative">
+      <Loader />
+      <Navbar theme={theme} setTheme={setTheme} />
+      <Hero onBook={scrollToBook} />
+      <About />
+      <Marquee />
+      <Services onBook={scrollToBook} />
+      <Gallery />
+      <Testimonials />
+      <Contact />
+      <Footer />
+      <FloatingCTAs />
+      <Toaster
+        position="bottom-center"
+        theme={theme}
+        toastOptions={{
+          style: {
+            background: "rgb(var(--nl-surface))",
+            color: "rgb(var(--nl-text))",
+            border: "1px solid rgb(var(--nl-border))",
+          },
+        }}
+      />
     </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
