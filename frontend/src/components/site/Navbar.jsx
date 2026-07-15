@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
-import { BRAND } from "@/data/salon";
 
 const links = [
   { id: "home", label: "Home" },

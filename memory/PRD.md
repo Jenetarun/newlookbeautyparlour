@@ -36,3 +36,14 @@ Premium luxury, modern, fully responsive website for beauty salon "New Look Beau
 - P2: Multi-language (Telugu)
 - P2: WhatsApp booking analytics
 - P2: Custom real photos to replace stock imagery
+
+## Sanity CMS Integration (2025-12)
+- Project ID: 8ekm5mh7, dataset: production
+- Studio embedded at /studio/ (built from /app/studio, output copied into /app/frontend/public/studio/)
+- Rebuild studio: `cd /app/studio && yarn build:embed && cp -r dist/* ../frontend/public/studio/ && cd ../frontend/public/studio && sed -i 's|"/static/|"/studio/static/|g; s|=/static/|=/studio/static/|g; s|(/static/|(/studio/static/|g' *.html static/*.js *.webmanifest`
+- Frontend uses @sanity/client (CDN, published perspective) with graceful fallback to hard-coded constants
+- Content-driven sections: Hero, Contact, Services, Gallery, Offers, Reviews, Site Images
+- CORS: user must add origins in Sanity Manage → API → CORS Origins:
+  - https://luxe-beauty-parlour-4.emergent.host
+  - https://luxe-beauty-parlour-4.preview.emergentagent.com
+  - http://localhost:3000

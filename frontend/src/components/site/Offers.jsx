@@ -1,38 +1,50 @@
 import { motion } from "framer-motion";
 import { Gift, Tag, ArrowUpRight } from "lucide-react";
+import { useSanity } from "@/sanity/useSanity";
+import { Q } from "@/sanity/client";
 
-const OFFERS = [
+const FALLBACK_OFFERS = [
   {
     tag: "New Client",
     title: "First-Visit Ritual",
     price: "10% off",
-    desc: "A gentle welcome — enjoy 10% off your first service at the atelier. Applicable on any single treatment.",
+    description: "A gentle welcome — enjoy 10% off your first service at the atelier. Applicable on any single treatment.",
     valid: "For first-time visitors only",
+    featured: true,
   },
   {
     tag: "Bridal Season",
     title: "The Complete Bride",
     price: "Package deal",
-    desc: "Muhurtham + Reception + Engagement makeup bundled with saree draping and mehendi at a curated bridal-package rate.",
+    description: "Muhurtham + Reception + Engagement makeup bundled with saree draping and mehendi at a curated bridal-package rate.",
     valid: "Book at least 14 days in advance",
   },
   {
     tag: "Refer & Reward",
     title: "Bring a Friend",
     price: "15% off both",
-    desc: "Refer a friend for any facial or bridal service — you both receive 15% off your next appointments.",
+    description: "Refer a friend for any facial or bridal service — you both receive 15% off your next appointments.",
     valid: "Referral must book within 30 days",
   },
   {
     tag: "Weekday",
     title: "Midweek Glow",
     price: "20% off",
-    desc: "Book any facial or hair spa on Tuesday or Wednesday and receive 20% off. A quieter salon, a longer ritual.",
+    description: "Book any facial or hair spa on Tuesday or Wednesday and receive 20% off. A quieter salon, a longer ritual.",
     valid: "Tuesday & Wednesday only",
   },
 ];
 
 export default function Offers({ onBook }) {
+  const { data: raw } = useSanity(Q.offers, FALLBACK_OFFERS);
+  const offers = raw.map((o) => ({
+    tag: o.tag,
+    title: o.title,
+    price: o.price,
+    description: o.description,
+    valid: o.valid,
+    featured: !!o.featured,
+  }));
   return (
     <section
       id="offers"
@@ -64,16 +76,18 @@ export default function Offers({ onBook }) {
       </div>
 
       <div className="grid grid-cols-12 gap-4 md:gap-6">
-        {OFFERS.map((o, i) => (
+        {offers.map((o, i) => {
+          const big = o.featured || (i === 0 && !offers.some((x) => x.featured));
+          return (
           <motion.article
-            key={o.title}
+            key={o.title + i}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.7, delay: i * 0.08 }}
             data-testid={`offer-card-${i}`}
             className={`glass rounded-2xl p-6 md:p-10 flex flex-col justify-between hover:border-gold transition-all duration-500 ${
-              i === 0
+              big
                 ? "col-span-12 md:col-span-7 md:row-span-2"
                 : "col-span-12 md:col-span-5"
             }`}
@@ -84,24 +98,24 @@ export default function Offers({ onBook }) {
               </div>
               <h3
                 className={`mt-4 font-display tracking-tight ${
-                  i === 0 ? "text-4xl md:text-6xl" : "text-2xl md:text-3xl"
+                  big ? "text-4xl md:text-6xl" : "text-2xl md:text-3xl"
                 }`}
               >
                 {o.title}
               </h3>
               <div
                 className={`mt-3 font-editorial italic text-gold ${
-                  i === 0 ? "text-3xl md:text-4xl" : "text-xl md:text-2xl"
+                  big ? "text-3xl md:text-4xl" : "text-xl md:text-2xl"
                 }`}
               >
                 {o.price}
               </div>
               <p
                 className={`mt-5 opacity-75 font-light leading-relaxed ${
-                  i === 0 ? "text-base md:text-lg max-w-lg" : "text-sm md:text-base"
+                  big ? "text-base md:text-lg max-w-lg" : "text-sm md:text-base"
                 }`}
               >
-                {o.desc}
+                {o.description}
               </p>
             </div>
             <div className="mt-6 pt-5 border-t border-gold-soft flex items-center justify-between gap-4">
@@ -116,7 +130,7 @@ export default function Offers({ onBook }) {
               </button>
             </div>
           </motion.article>
-        ))}
+        )})}
       </div>
 
       <p className="mt-10 font-mono-luxe text-[10px] tracking-[0.3em] uppercase opacity-50">

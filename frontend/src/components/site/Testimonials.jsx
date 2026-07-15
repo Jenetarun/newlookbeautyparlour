@@ -1,8 +1,18 @@
 import { motion } from "framer-motion";
 import { Star } from "lucide-react";
 import { TESTIMONIALS } from "@/data/salon";
+import { useSanity } from "@/sanity/useSanity";
+import { Q } from "@/sanity/client";
 
 export default function Testimonials() {
+  const { data: raw } = useSanity(Q.reviews, TESTIMONIALS);
+  const items = (raw || []).map((t) => ({
+    n: t.name || t.n,
+    role: t.role,
+    q: t.quote || t.q,
+    rating: t.rating || 5,
+    featured: !!t.featured,
+  }));
   return (
     <section
       id="testimonials"
@@ -29,16 +39,18 @@ export default function Testimonials() {
       </div>
 
       <div className="grid grid-cols-12 gap-4 md:gap-6">
-        {TESTIMONIALS.map((t, i) => (
+        {items.map((t, i) => {
+          const big = t.featured || (i === 0 && !items.some((x) => x.featured));
+          return (
           <motion.figure
-            key={i}
+            key={(t.n || "r") + i}
             data-testid={`testimonial-${i}`}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.8, delay: i * 0.08 }}
             className={`glass rounded-2xl p-8 md:p-10 flex flex-col justify-between ${
-              i === 0
+              big
                 ? "col-span-12 md:col-span-7 md:row-span-2"
                 : i === 1
                 ? "col-span-12 md:col-span-5"
@@ -47,13 +59,13 @@ export default function Testimonials() {
           >
             <div>
               <div className="flex items-center gap-1 text-gold mb-6">
-                {Array.from({ length: 5 }).map((_, s) => (
+                {Array.from({ length: t.rating || 5 }).map((_, s) => (
                   <Star key={s} size={14} fill="currentColor" strokeWidth={0} />
                 ))}
               </div>
               <blockquote
                 className={`font-editorial italic leading-snug ${
-                  i === 0 ? "text-2xl md:text-4xl" : "text-lg md:text-xl"
+                  big ? "text-2xl md:text-4xl" : "text-lg md:text-xl"
                 }`}
               >
                 &ldquo;{t.q}&rdquo;
@@ -66,7 +78,7 @@ export default function Testimonials() {
               </div>
             </figcaption>
           </motion.figure>
-        ))}
+        )})}
       </div>
     </section>
   );

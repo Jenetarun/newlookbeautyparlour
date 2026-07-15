@@ -1,8 +1,9 @@
 import { Phone, MessageCircle } from "lucide-react";
-import { BRAND } from "@/data/salon";
+import { useBrand } from "@/sanity/useBrand";
 import { motion } from "framer-motion";
 
 export default function FloatingCTAs() {
+  const BRAND = useBrand();
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}

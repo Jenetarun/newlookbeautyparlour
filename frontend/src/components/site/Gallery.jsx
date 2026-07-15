@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { Instagram, ArrowUpRight } from "lucide-react";
 import { IMAGES, BRAND } from "@/data/salon";
+import { useSanity } from "@/sanity/useSanity";
+import { Q, urlFor } from "@/sanity/client";
 
-const GALLERY = [
+const FALLBACK_GALLERY = [
   { src: IMAGES.heroBride, label: "Bridal Cinema", tall: true },
   { src: IMAGES.facialTreatment, label: "Hydra Facial" },
   { src: IMAGES.hairStyling, label: "Hair Styling" },
@@ -18,6 +20,14 @@ const GALLERY = [
 ];
 
 export default function Gallery() {
+  const { data: raw } = useSanity(Q.gallery, null);
+  const gallery = Array.isArray(raw) && raw.length > 0
+    ? raw.map((g) => ({
+        src: urlFor(g.image)?.width(1200).quality(80).url() || IMAGES.heroBride,
+        label: g.label,
+        tall: !!g.tall,
+      }))
+    : FALLBACK_GALLERY;
   return (
     <section
       id="gallery"
@@ -53,7 +63,7 @@ export default function Gallery() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[220px] md:auto-rows-[260px] gap-2 md:gap-3">
-        {GALLERY.map((g, i) => (
+        {gallery.map((g, i) => (
           <motion.a
             key={i}
             data-testid={`gallery-item-${i}`}

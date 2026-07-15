@@ -3,7 +3,10 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import { toast } from "sonner";
 import { Instagram, MapPin, Phone, MessageCircle, ArrowUpRight, Clock } from "lucide-react";
-import { BRAND, SERVICES } from "@/data/salon";
+import { SERVICES } from "@/data/salon";
+import { useBrand } from "@/sanity/useBrand";
+import { useSanity } from "@/sanity/useSanity";
+import { Q } from "@/sanity/client";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -17,6 +20,12 @@ const empty = {
 };
 
 export default function Contact() {
+  const BRAND = useBrand();
+  const { data: sanityServices } = useSanity(Q.services, SERVICES);
+  const servicesList = (sanityServices || SERVICES).map((s, i) => ({
+    id: s._id || s.id || `svc-${i}`,
+    name: s.name,
+  }));
   const [form, setForm] = useState(empty);
   const [loading, setLoading] = useState(false);
 
@@ -230,7 +239,7 @@ export default function Contact() {
                 <option value="" style={{ background: "rgb(var(--nl-surface))" }}>
                   Select a service…
                 </option>
-                {SERVICES.map((s) => (
+                {servicesList.map((s) => (
                   <option
                     key={s.id}
                     value={s.name}

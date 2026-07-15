@@ -2,6 +2,19 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowUpRight, MapPin, Phone } from "lucide-react";
 import { BRAND, IMAGES } from "@/data/salon";
+import { useSanity } from "@/sanity/useSanity";
+import { Q, urlFor } from "@/sanity/client";
+import { useBrand as _useBrand } from "@/sanity/useBrand";
+// Note: BRAND is imported for build-time fallback; runtime brand comes from useBrand hook below.
+
+const HERO_FALLBACK = {
+  eyebrow: "New Look Beauty Parlour",
+  headingLine1: "Where beauty",
+  headingLine2: "meets perfection.",
+  description:
+    "A quiet atelier of bridal artistry, skin rituals and hair craft — curated for the women of Akividu by Certified Beautician Lakshmi Eswari.",
+  chapterLabel: "Chapter 01 — The Ritual",
+};
 
 const line = {
   hidden: { y: "110%" },
@@ -25,11 +38,20 @@ const fade = {
 };
 
 export default function Hero({ onBook }) {
+  const BRAND = _useBrand();
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
   const overlayOpacity = useTransform(scrollYProgress, [0, 1], [0.55, 0.85]);
+
+  const { data: h } = useSanity(Q.hero, HERO_FALLBACK);
+  const bgUrl =
+    (h?.backgroundImage && urlFor(h.backgroundImage)?.width(2000).quality(85).url()) ||
+    IMAGES.heroBride;
+  const chapterParts = (h.chapterLabel || "Chapter 01 — The Ritual").split("—");
+  const chapterMain = (chapterParts[0] || "").trim();
+  const chapterSub = (chapterParts[1] || "").trim();
 
   return (
     <section
@@ -41,7 +63,7 @@ export default function Hero({ onBook }) {
       {/* Parallax bg */}
       <motion.div style={{ y, scale }} className="absolute inset-0 z-0">
         <img
-          src={IMAGES.heroBride}
+          src={bgUrl}
           alt="Luxury bridal portrait"
           className="w-full h-full object-cover object-[65%_center]"
           loading="eager"
@@ -63,7 +85,7 @@ export default function Hero({ onBook }) {
           className="font-mono-luxe text-[10px] tracking-[0.35em] uppercase flex items-center gap-3"
         >
           <span className="inline-block w-6 h-px bg-white/50" />
-          Est. Akividu — Andhra Pradesh
+          {h.eyebrow || "Est. Akividu — Andhra Pradesh"}
         </motion.div>
       </div>
 
@@ -74,9 +96,9 @@ export default function Hero({ onBook }) {
           transition={{ delay: 1.7, duration: 1 }}
           className="font-mono-luxe text-[10px] tracking-[0.35em] uppercase text-right"
         >
-          Chapter 01
+          {chapterMain || "Chapter 01"}
           <br />
-          <span className="text-gold">The Ritual</span>
+          <span className="text-gold">{chapterSub || "The Ritual"}</span>
         </motion.div>
       </div>
 
@@ -94,18 +116,26 @@ export default function Hero({ onBook }) {
             animate="show"
             className="font-mono-luxe text-[10px] md:text-xs tracking-[0.4em] uppercase text-gold mb-6"
           >
-            New Look Beauty Parlour
+            {h.eyebrow || "New Look Beauty Parlour"}
           </motion.div>
 
           <h1 className="font-display font-medium leading-[0.92] tracking-[-0.02em] text-[13vw] md:text-[9vw] lg:text-[8.4rem] xl:text-[9.5rem] max-w-6xl">
             <span className="mask-line">
               <motion.span variants={line} custom={0} className="block">
-                Where <span className="italic font-editorial text-gold">beauty</span>
+                {(h.headingLine1 || "Where beauty").split(/(beauty)/i).map((part, i) =>
+                  /beauty/i.test(part) ? (
+                    <span key={i} className="italic font-editorial text-gold">
+                      {part}
+                    </span>
+                  ) : (
+                    <span key={i}>{part}</span>
+                  )
+                )}
               </motion.span>
             </span>
             <span className="mask-line">
               <motion.span variants={line} custom={1} className="block">
-                meets perfection.
+                {h.headingLine2 || "meets perfection."}
               </motion.span>
             </span>
           </h1>
@@ -117,12 +147,16 @@ export default function Hero({ onBook }) {
             animate="show"
             className="mt-8 md:mt-10 max-w-xl text-base md:text-lg font-light leading-relaxed text-white/75"
           >
-            A quiet atelier of bridal artistry, skin rituals and hair craft —
-            curated for the women of Akividu by Certified Beautician{" "}
-            <span className="italic font-editorial text-gold">
-              Lakshmi Eswari
-            </span>
-            .
+            {h.description || (
+              <>
+                A quiet atelier of bridal artistry, skin rituals and hair craft
+                — curated for the women of Akividu by Certified Beautician{" "}
+                <span className="italic font-editorial text-gold">
+                  Lakshmi Eswari
+                </span>
+                .
+              </>
+            )}
           </motion.p>
 
           <motion.div

@@ -1,7 +1,8 @@
 import { Instagram, MapPin, Phone, MessageCircle } from "lucide-react";
-import { BRAND } from "@/data/salon";
+import { useBrand } from "@/sanity/useBrand";
 
 export default function Footer() {
+  const BRAND = useBrand();
   return (
     <footer
       data-testid="site-footer"
@@ -85,10 +86,17 @@ export default function Footer() {
           <div className="font-mono-luxe text-[10px] tracking-[0.3em] uppercase opacity-60">
             © {new Date().getFullYear()} New Look Beauty Parlour · All Rights Reserved
           </div>
-          <div className="font-mono-luxe text-[10px] tracking-[0.3em] uppercase opacity-60 flex gap-6">
+          <div className="font-mono-luxe text-[10px] tracking-[0.3em] uppercase opacity-60 flex flex-wrap gap-6 items-center">
             <button className="hover:text-gold transition-colors">
               Privacy Policy
             </button>
+            <a
+              href="/studio/"
+              data-testid="footer-studio-link"
+              className="hover:text-gold transition-colors"
+            >
+              Manage Content ↗
+            </a>
             <span>Crafted with care · {BRAND.shortAddress}</span>
           </div>
         </div>

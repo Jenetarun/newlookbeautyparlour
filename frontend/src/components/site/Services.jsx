@@ -1,14 +1,27 @@
 import { motion } from "framer-motion";
 import { SERVICES } from "@/data/salon";
 import { ArrowUpRight } from "lucide-react";
+import { useSanity } from "@/sanity/useSanity";
+import { Q } from "@/sanity/client";
 
 const CATS = ["All", "Signature", "Skin", "Hair", "Grooming", "Occasion", "Nails", "Ritual", "Draping", "Little Ones"];
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
 export default function Services({ onBook }) {
   const [active, setActive] = useState("All");
-  const list = active === "All" ? SERVICES : SERVICES.filter((s) => s.category === active);
+  const { data: sanityList } = useSanity(Q.services, SERVICES);
+  const services = useMemo(
+    () =>
+      (sanityList || []).map((s, i) => ({
+        id: s._id || s.id || `svc-${i}`,
+        name: s.name,
+        category: s.category,
+        desc: s.description || s.desc || "",
+      })),
+    [sanityList]
+  );
+  const list = active === "All" ? services : services.filter((s) => s.category === active);
 
   return (
     <section
