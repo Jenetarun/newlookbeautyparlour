@@ -8,6 +8,7 @@ import { useBrand } from "@/sanity/useBrand";
 import { useSanity } from "@/sanity/useSanity";
 import { Q } from "@/sanity/client";
 
+
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const empty = {
@@ -237,19 +238,17 @@ export default function Contact() {
     <label key={s.id} className="flex items-center gap-2">
       <input
         type="checkbox"
-        checked={form.service?.includes(s.name)}
+        checked={form.service.includes(s.name)}
         onChange={(e) => {
           if (e.target.checked) {
             setForm({
               ...form,
-              service: [...(form.service || []), s.name],
+              service: [...form.service, s.name],
             });
           } else {
             setForm({
               ...form,
-              service: (form.service || []).filter(
-                (x) => x !== s.name
-              ),
+              service: form.service.filter((x) => x !== s.name),
             });
           }
         }}
