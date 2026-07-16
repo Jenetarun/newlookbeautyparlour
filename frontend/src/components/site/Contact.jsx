@@ -13,7 +13,7 @@ const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 const empty = {
   name: "",
   phone: "",
-  service: "",
+  service: [],
   preferred_date: "",
   preferred_time: "",
   message: "",
@@ -29,11 +29,14 @@ export default function Contact() {
   const [form, setForm] = useState(empty);
   const [loading, setLoading] = useState(false);
 
-  const upd = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+  const upd = (k) => (e) => {
+    setForm({ ...form, [k]: e.target.value });
+    }
+   
 
   const submit = async (e) => {
     e.preventDefault();
-    if (!form.name.trim() || !form.phone.trim() || !form.service) {
+    if (!form.name.trim() || !form.phone.trim() || form.service.length === 0) {
       toast.error("Please fill name, phone and service.");
       return;
     }
@@ -46,7 +49,7 @@ export default function Contact() {
       const msg = `Hello Lakshmi garu, I would like to book an appointment.%0A%0AName: ${encodeURIComponent(
         form.name
       )}%0APhone: ${encodeURIComponent(form.phone)}%0AService: ${encodeURIComponent(
-        form.service
+        form.service.join(", ")
       )}%0ADate: ${encodeURIComponent(form.preferred_date)}%0ATime: ${encodeURIComponent(
         form.preferred_time
       )}%0A%0A${encodeURIComponent(form.message || "")}`;
@@ -229,26 +232,32 @@ export default function Contact() {
               <label className="font-mono-luxe text-[10px] tracking-[0.3em] uppercase opacity-60">
                 Service
               </label>
-              <select
-                data-testid="form-service"
-                className="input-luxe bg-transparent appearance-none"
-                value={form.service}
-                onChange={upd("service")}
-                style={{ backgroundImage: "none" }}
-              >
-                <option value="" style={{ background: "rgb(var(--nl-surface))" }}>
-                  Select a service…
-                </option>
-                {servicesList.map((s) => (
-                  <option
-                    key={s.id}
-                    value={s.name}
-                    style={{ background: "rgb(var(--nl-surface))" }}
-                  >
-                    {s.name}
-                  </option>
-                ))}
-              </select>
+              <div className="space-y-2">
+  {servicesList.map((s) => (
+    <label key={s.id} className="flex items-center gap-2">
+      <input
+        type="checkbox"
+        checked={form.service?.includes(s.name)}
+        onChange={(e) => {
+          if (e.target.checked) {
+            setForm({
+              ...form,
+              service: [...(form.service || []), s.name],
+            });
+          } else {
+            setForm({
+              ...form,
+              service: (form.service || []).filter(
+                (x) => x !== s.name
+              ),
+            });
+          }
+        }}
+      />
+      {s.name}
+    </label>
+  ))}
+</div>
             </div>
             <div className="col-span-2 md:col-span-1">
               <label className="font-mono-luxe text-[10px] tracking-[0.3em] uppercase opacity-60">
