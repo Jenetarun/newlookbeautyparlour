@@ -39,7 +39,7 @@ export default function Contact() {
     }
     setLoading(true);
     try {
-      await axios.post(`${API}/appointments`, form);
+      //await axios.post(`${API}/appointments`, form);
       toast.success("Booked — we'll be in touch shortly.");
 
       // Also open WhatsApp with prefilled message
